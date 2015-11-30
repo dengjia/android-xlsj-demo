@@ -17,6 +17,7 @@ import java.net.Socket;
  * @author webapp
  */
 public class SocketClient {
+    private static final String TAG = "SocketClient";
     private Socket sk;
     private String host = null;
     private String port = null;
@@ -40,7 +41,7 @@ public class SocketClient {
             lengthStr = "0" + lengthStr;
         }
         msg = lengthStr + msg;
-        Log.e("opp", "json :" + msg);
+        Log.e(TAG, "json :" + msg);
         PrintWriter out = null;
         BufferedReader in = null;
 
@@ -48,7 +49,6 @@ public class SocketClient {
         try {
             this.sk = new Socket(this.host, Integer.parseInt(this.port));
             this.sk.setSoTimeout(timeout);
-            System.out.println("connected to server with port" + this.host + "==" + this.port);
 
             out = new PrintWriter(new OutputStreamWriter(this.sk.getOutputStream(), "gbk"));
             in = new BufferedReader(new InputStreamReader(this.sk.getInputStream(), "gbk"));

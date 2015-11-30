@@ -35,6 +35,7 @@ import java.util.Hashtable;
 import java.util.Random;
 
 public class CreateQRcodeActivity extends BaseActivity {
+    private static final String TAG = "CreateQRcodeActivity";
     private static final int IMAGE_HALFWIDTH = 40;
     int FOREGROUND_COLOR = 0xff000000;
     int BACKGROUND_COLOR = 0xffffffff;
@@ -80,7 +81,7 @@ public class CreateQRcodeActivity extends BaseActivity {
 
             @Override
             public void onResult(ResultData resultData) {
-                Log.i("opp", resultData.qrcode);
+                Log.i(TAG, resultData.qrcode);
                 mResultData = resultData;
                 Message msg = new Message();
                 msg.what = 1;
@@ -90,7 +91,7 @@ public class CreateQRcodeActivity extends BaseActivity {
 
             @Override
             public void onError(int errorCode) {
-                Log.i("opp", "" + errorCode);
+                Log.i(TAG, "errorCode: " + errorCode);
 
             }
         });
@@ -212,7 +213,7 @@ public class CreateQRcodeActivity extends BaseActivity {
                         break;
                     }
                     case Msg.MSG_FROM_SERVER_TRADE_NOPAY: {
-                        mAlert_Dialog.show("" + getResources().getString(R.string.dialog_trade_nopay), BitmapFactory
+                        mAlertDialog.show("" + getResources().getString(R.string.dialog_trade_nopay), BitmapFactory
                                 .decodeResource(
                                         mContext.getResources(),
                                         R.drawable.wrong));
@@ -220,7 +221,7 @@ public class CreateQRcodeActivity extends BaseActivity {
                         break;
                     }
                     case Msg.MSG_FROM_SUCCESS_DIGLOG_HISTORY: {
-                        SessonData.position_view = 1;
+                        SessonData.positionView = 1;
                         setResult(101);
                         finish();
                         break;

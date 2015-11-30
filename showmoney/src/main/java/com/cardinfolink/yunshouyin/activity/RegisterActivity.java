@@ -11,13 +11,13 @@ import com.cardinfolink.yunshouyin.data.SaveData;
 import com.cardinfolink.yunshouyin.data.SessonData;
 import com.cardinfolink.yunshouyin.data.User;
 import com.cardinfolink.yunshouyin.util.CommunicationListener;
-import com.cardinfolink.yunshouyin.util.ContextUtil;
+import com.cardinfolink.yunshouyin.util.ShowMoneyApp;
 import com.cardinfolink.yunshouyin.util.ErrorUtil;
 import com.cardinfolink.yunshouyin.util.HttpCommunicationUtil;
 import com.cardinfolink.yunshouyin.util.JsonUtil;
 import com.cardinfolink.yunshouyin.util.ParamsUtil;
 import com.cardinfolink.yunshouyin.util.VerifyUtil;
-import com.cardinfolink.yunshouyin.view.Activate_dialog;
+import com.cardinfolink.yunshouyin.view.ActivateDialog;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,18 +56,18 @@ public class RegisterActivity extends BaseActivity {
 
     private void initLayout() {
         mEmailEdit = (EditText) findViewById(R.id.register_email);
-        VerifyUtil.addEmialLimit(mEmailEdit);
+        VerifyUtil.addEmailLimit(mEmailEdit);
         mPasswordEdit = (EditText) findViewById(R.id.register_password);
-        VerifyUtil.addEmialLimit(mPasswordEdit);
+        VerifyUtil.addEmailLimit(mPasswordEdit);
         mQrPasswordEdit = (EditText) findViewById(R.id.register_qr_password);
-        VerifyUtil.addEmialLimit(mQrPasswordEdit);
+        VerifyUtil.addEmailLimit(mQrPasswordEdit);
 
 
     }
 
     public void BtnRegisterNextOnClick(View view) {
         if (validate()) {
-            mLoading_Dialog.startLoading();
+            mLoadingDialog.startLoading();
             final String username = mEmailEdit.getText().toString();
             final String password = mPasswordEdit.getText().toString();
             HttpCommunicationUtil.sendDataToServer(ParamsUtil.getRegister(username, password), new CommunicationListener() {
@@ -89,8 +89,8 @@ public class RegisterActivity extends BaseActivity {
                             @Override
                             public void run() {
                                 //更新UI
-                                mLoading_Dialog.endLoading();
-                                Activate_dialog activate_dialog = new Activate_dialog(mContext, RegisterActivity.this.findViewById(R.id.activate_dialog), SessonData.loginUser.getUsername());
+                                mLoadingDialog.endLoading();
+                                ActivateDialog activate_dialog = new ActivateDialog(mContext, RegisterActivity.this.findViewById(R.id.activate_dialog), SessonData.loginUser.getUsername());
                                 activate_dialog.show();
                             }
 
@@ -102,8 +102,8 @@ public class RegisterActivity extends BaseActivity {
                             @Override
                             public void run() {
                                 //更新UI
-                                mLoading_Dialog.endLoading();
-                                mAlert_Dialog.show(ErrorUtil.getErrorString(JsonUtil.getParam(result, "error")), BitmapFactory.decodeResource(mContext.getResources(), R.drawable.wrong));
+                                mLoadingDialog.endLoading();
+                                mAlertDialog.show(ErrorUtil.getErrorString(JsonUtil.getParam(result, "error")), BitmapFactory.decodeResource(mContext.getResources(), R.drawable.wrong));
                             }
 
                         });
@@ -118,8 +118,8 @@ public class RegisterActivity extends BaseActivity {
                         @Override
                         public void run() {
                             //更新UI
-                            mLoading_Dialog.endLoading();
-                            mAlert_Dialog.show(error, BitmapFactory.decodeResource(mContext.getResources(), R.drawable.wrong));
+                            mLoadingDialog.endLoading();
+                            mAlertDialog.show(error, BitmapFactory.decodeResource(mContext.getResources(), R.drawable.wrong));
                         }
 
                     });
@@ -137,24 +137,24 @@ public class RegisterActivity extends BaseActivity {
         qr_password = mQrPasswordEdit.getText().toString();
 
         if (email.isEmpty()) {
-            mAlert_Dialog.show(ContextUtil.getResString(R.string.alert_error_email_cannot_empty), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
+            mAlertDialog.show(ShowMoneyApp.getResString(R.string.alert_error_email_cannot_empty), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
             return false;
         }
         if (!checkEmail(email)) {
-            mAlert_Dialog.show(ContextUtil.getResString(R.string.alert_error_email_format_error), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
+            mAlertDialog.show(ShowMoneyApp.getResString(R.string.alert_error_email_format_error), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
             return false;
         }
 
         if (password.isEmpty()) {
-            mAlert_Dialog.show(ContextUtil.getResString(R.string.alert_error_password_cannot_empty), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
+            mAlertDialog.show(ShowMoneyApp.getResString(R.string.alert_error_password_cannot_empty), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
             return false;
         }
         if (password.length() < 6) {
-            mAlert_Dialog.show(ContextUtil.getResString(R.string.alert_error_password_short_six), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
+            mAlertDialog.show(ShowMoneyApp.getResString(R.string.alert_error_password_short_six), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
             return false;
         }
         if (!password.equals(qr_password)) {
-            mAlert_Dialog.show(ContextUtil.getResString(R.string.alert_error_qrpassword_error), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
+            mAlertDialog.show(ShowMoneyApp.getResString(R.string.alert_error_qrpassword_error), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
             return false;
         }
 

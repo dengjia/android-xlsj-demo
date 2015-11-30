@@ -1,7 +1,6 @@
 package com.cardinfolink.yunshouyin.util;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 
 import com.cardinfolink.yunshouyin.constant.SystemConfig;
 import com.cardinfolink.yunshouyin.data.RequestParam;
@@ -98,12 +97,12 @@ public class ParamsUtil {
         params.add(new BasicNameValuePair("password", password));
         params.add(new BasicNameValuePair("province", user.getProvince()));
         params.add(new BasicNameValuePair("city", user.getCity()));
-        params.add(new BasicNameValuePair("bank_open", user.getBank_open()));
-        params.add(new BasicNameValuePair("branch_bank", user.getBranch_bank()));
+        params.add(new BasicNameValuePair("bank_open", user.getBankOpen()));
+        params.add(new BasicNameValuePair("branch_bank", user.getBranchBank()));
         params.add(new BasicNameValuePair("bankNo", user.getBankNo()));
         params.add(new BasicNameValuePair("payee", user.getPayee()));
-        params.add(new BasicNameValuePair("payee_card", user.getPayee_card()));
-        params.add(new BasicNameValuePair("phone_num", user.getPhone_num()));
+        params.add(new BasicNameValuePair("payee_card", user.getPayeeCard()));
+        params.add(new BasicNameValuePair("phone_num", user.getPhoneNum()));
         params.add(new BasicNameValuePair("transtime", transTime));
         params.add(new BasicNameValuePair("sign", getSign(params, "SHA-1")));
         requestParam.setParams(params);
@@ -314,12 +313,12 @@ public class ParamsUtil {
         params.add(new BasicNameValuePair("password", password));
         params.add(new BasicNameValuePair("province", user.getProvince()));
         params.add(new BasicNameValuePair("city", user.getCity()));
-        params.add(new BasicNameValuePair("bank_open", user.getBank_open()));
-        params.add(new BasicNameValuePair("branch_bank", user.getBranch_bank()));
+        params.add(new BasicNameValuePair("bank_open", user.getBankOpen()));
+        params.add(new BasicNameValuePair("branch_bank", user.getBranchBank()));
         params.add(new BasicNameValuePair("bankNo", user.getBankNo()));
         params.add(new BasicNameValuePair("payee", user.getPayee()));
-        params.add(new BasicNameValuePair("payee_card", user.getPayee_card()));
-        params.add(new BasicNameValuePair("phone_num", user.getPhone_num()));
+        params.add(new BasicNameValuePair("payee_card", user.getPayeeCard()));
+        params.add(new BasicNameValuePair("phone_num", user.getPhoneNum()));
         params.add(new BasicNameValuePair("transtime", transTime));
         params.add(new BasicNameValuePair("sign", getSign(params, "SHA-1")));
         requestParam.setParams(params);
@@ -341,9 +340,9 @@ public class ParamsUtil {
         List<NameValuePair> params = new LinkedList<NameValuePair>();
         params.add(new BasicNameValuePair("username", user.getUsername()));
         params.add(new BasicNameValuePair("password", password));
-        params.add(new BasicNameValuePair("payee", user.getLimit_name()));
-        params.add(new BasicNameValuePair("email", user.getLimit_email()));
-        params.add(new BasicNameValuePair("phone_num", user.getLimit_phone()));
+        params.add(new BasicNameValuePair("payee", user.getLimitName()));
+        params.add(new BasicNameValuePair("email", user.getLimitEmail()));
+        params.add(new BasicNameValuePair("phone_num", user.getLimitPhone()));
         params.add(new BasicNameValuePair("transtime", transTime));
         params.add(new BasicNameValuePair("sign", getSign(params, "SHA-1")));
         requestParam.setParams(params);
@@ -367,7 +366,6 @@ public class ParamsUtil {
         sb.append('=');
         sb.append(params.get(params.size() - 1).getValue());
         sb.append(SystemConfig.APP_KEY);
-        Log.i("opp", sb.toString());
         String sign = EncoderUtil.Encrypt(sb.toString(), signType);
         return sign;
     }

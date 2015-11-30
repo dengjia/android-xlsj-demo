@@ -15,7 +15,7 @@ import com.cardinfolink.yunshouyin.data.SaveData;
 import com.cardinfolink.yunshouyin.data.SessonData;
 import com.cardinfolink.yunshouyin.data.User;
 import com.cardinfolink.yunshouyin.util.CommunicationListener;
-import com.cardinfolink.yunshouyin.util.ContextUtil;
+import com.cardinfolink.yunshouyin.util.ShowMoneyApp;
 import com.cardinfolink.yunshouyin.util.ErrorUtil;
 import com.cardinfolink.yunshouyin.util.HttpCommunicationUtil;
 import com.cardinfolink.yunshouyin.util.JsonUtil;
@@ -40,11 +40,11 @@ public class PasswordUpdateView extends LinearLayout {
         contentView.setLayoutParams(layoutParams);
         addView(contentView);
         mOldPwdEdit = (EditText) contentView.findViewById(R.id.update_password_oldpwd);
-        VerifyUtil.addEmialLimit(mOldPwdEdit);
+        VerifyUtil.addEmailLimit(mOldPwdEdit);
         mNewPwdEdit = (EditText) contentView.findViewById(R.id.update_password_newpwd);
-        VerifyUtil.addEmialLimit(mNewPwdEdit);
+        VerifyUtil.addEmailLimit(mNewPwdEdit);
         mQrPwdEdit = (EditText) contentView.findViewById(R.id.update_password_qr_newpwd);
-        VerifyUtil.addEmialLimit(mQrPwdEdit);
+        VerifyUtil.addEmailLimit(mQrPwdEdit);
 
 
         contentView.findViewById(R.id.btn_update_password).setOnClickListener(new OnClickListener() {
@@ -77,7 +77,7 @@ public class PasswordUpdateView extends LinearLayout {
                                     public void run() {
                                         //更新UI
                                         mBaseActivity.endLoading();
-                                        Alert_Dialog alert_Dialog = new Alert_Dialog(mContext, null, ((Activity) mContext).findViewById(R.id.alert_dialog), getResources().getString(R.string.alert_update_success), BitmapFactory.decodeResource(mContext.getResources(), R.drawable.right));
+                                        AlertDialog alert_Dialog = new AlertDialog(mContext, null, ((Activity) mContext).findViewById(R.id.alert_dialog), getResources().getString(R.string.alert_update_success), BitmapFactory.decodeResource(mContext.getResources(), R.drawable.right));
                                         alert_Dialog.show();
                                         mOldPwdEdit.setText("");
                                         mNewPwdEdit.setText("");
@@ -93,7 +93,7 @@ public class PasswordUpdateView extends LinearLayout {
                                     @Override
                                     public void run() {
                                         mBaseActivity.endLoading();
-                                        Alert_Dialog alert_Dialog = new Alert_Dialog(mContext, null, ((Activity) mContext).findViewById(R.id.alert_dialog), ErrorUtil.getErrorString(error), BitmapFactory.decodeResource(mContext.getResources(), R.drawable.wrong));
+                                        AlertDialog alert_Dialog = new AlertDialog(mContext, null, ((Activity) mContext).findViewById(R.id.alert_dialog), ErrorUtil.getErrorString(error), BitmapFactory.decodeResource(mContext.getResources(), R.drawable.wrong));
                                         alert_Dialog.show();
 
                                     }
@@ -111,7 +111,7 @@ public class PasswordUpdateView extends LinearLayout {
                                 @Override
                                 public void run() {
                                     mBaseActivity.endLoading();
-                                    Alert_Dialog alert_Dialog = new Alert_Dialog(mContext, null, ((Activity) mContext).findViewById(R.id.alert_dialog), ErrorUtil.getErrorString(error), BitmapFactory.decodeResource(mContext.getResources(), R.drawable.wrong));
+                                    AlertDialog alert_Dialog = new AlertDialog(mContext, null, ((Activity) mContext).findViewById(R.id.alert_dialog), ErrorUtil.getErrorString(error), BitmapFactory.decodeResource(mContext.getResources(), R.drawable.wrong));
                                     alert_Dialog.show();
 
                                 }
@@ -138,28 +138,28 @@ public class PasswordUpdateView extends LinearLayout {
 
 
         if (oldpwd.isEmpty()) {
-            mBaseActivity.alertShow(ContextUtil.getResString(R.string.alert_error_old_password_cannot_empty), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
+            mBaseActivity.alertShow(ShowMoneyApp.getResString(R.string.alert_error_old_password_cannot_empty), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
             return false;
         }
 
         if (oldpwd.length() < 6) {
-            mBaseActivity.alertShow(ContextUtil.getResString(R.string.alert_error_old_password_short_six), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
+            mBaseActivity.alertShow(ShowMoneyApp.getResString(R.string.alert_error_old_password_short_six), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
             return false;
         }
 
 
         if (newpwd.isEmpty()) {
-            mBaseActivity.alertShow(ContextUtil.getResString(R.string.alert_error_new_password_cannot_empty), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
+            mBaseActivity.alertShow(ShowMoneyApp.getResString(R.string.alert_error_new_password_cannot_empty), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
             return false;
         }
 
         if (newpwd.length() < 6) {
-            mBaseActivity.alertShow(ContextUtil.getResString(R.string.alert_error_new_password_short_six), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
+            mBaseActivity.alertShow(ShowMoneyApp.getResString(R.string.alert_error_new_password_short_six), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
             return false;
         }
 
         if (!qrpwd.equals(newpwd)) {
-            mBaseActivity.alertShow(ContextUtil.getResString(R.string.alert_error_qrpassword_error), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
+            mBaseActivity.alertShow(ShowMoneyApp.getResString(R.string.alert_error_qrpassword_error), BitmapFactory.decodeResource(this.getResources(), R.drawable.wrong));
             return false;
         }
 

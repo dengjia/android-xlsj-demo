@@ -25,7 +25,7 @@ import com.cardinfolink.yunshouyin.util.ErrorUtil;
 import com.cardinfolink.yunshouyin.util.HttpCommunicationUtil;
 import com.cardinfolink.yunshouyin.util.JsonUtil;
 import com.cardinfolink.yunshouyin.util.ParamsUtil;
-import com.cardinfolink.yunshouyin.view.Refd_Dialog;
+import com.cardinfolink.yunshouyin.view.RefdDialog;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -212,7 +212,7 @@ public class DetailActivity extends BaseActivity {
                                 public void run() {
                                     // 更新UI
                                     endLoading();
-                                    Refd_Dialog refd_Dialog = new Refd_Dialog(
+                                    RefdDialog refd_Dialog = new RefdDialog(
                                             DetailActivity.this, mHandler,
                                             findViewById(R.id.refd_dialog),
                                             mTradeBill.orderNum, refdtotal,
@@ -229,7 +229,7 @@ public class DetailActivity extends BaseActivity {
                                 public void run() {
                                     // 更新UI
                                     endLoading();
-                                    mAlert_Dialog.show(ErrorUtil
+                                    mAlertDialog.show(ErrorUtil
                                                     .getErrorString(JsonUtil.getParam(
                                                             result, "error")),
                                             BitmapFactory.decodeResource(
@@ -250,7 +250,7 @@ public class DetailActivity extends BaseActivity {
                             public void run() {
                                 // 更新UI
                                 endLoading();
-                                mAlert_Dialog.show(error, BitmapFactory
+                                mAlertDialog.show(error, BitmapFactory
                                         .decodeResource(
                                                 mContext.getResources(),
                                                 R.drawable.wrong));
@@ -269,7 +269,7 @@ public class DetailActivity extends BaseActivity {
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case Msg.MSG_FROM_CLIENT_ALERT_OK: {
-                        SessonData.position_view = 1;
+                        SessonData.positionView = 1;
                         setResult(101);
                         finish();
                     }
